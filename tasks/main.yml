@@ -1,0 +1,22 @@
+---
+
+- name: install mysql server
+  apt: 
+    name: ['mysql-server', 'mysql-client', 'python3-mysqldb']
+    state: present
+    update_cache: true 
+
+    
+- name: Create Database
+  mysql_db:
+    name: "{{ mysql_db }}" 
+    state: present
+
+
+- name: Create Database User
+  mysql_user: 
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
+    priv: "*.*:ALL" 
+    host: '%'
+    state: present
